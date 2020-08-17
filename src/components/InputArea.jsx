@@ -1,4 +1,6 @@
 import React from "react";
+import AddIcon from "@material-ui/icons/Add";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 
 function InputArea(props) {
   const [inputText, setInputText] = React.useState("");
@@ -26,7 +28,9 @@ function InputArea(props) {
           doThis();
         }}
       >
-        <span>Add</span>
+        <span>
+          <AddIcon />
+        </span>
       </button>
     </div>
   );

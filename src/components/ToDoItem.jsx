@@ -3,15 +3,13 @@ import React from "react";
 function ToDoItem(props) {
   // const [isDone, setIsDone] = useState(false);
 
-  // function handleClick() {
-  //   setIsDone((prevValue) => {
-  //     return !prevValue;
-  //   });
-  // }
-
+  function handleClick() {
+    console.log("Hi");
+    props.onChecked(props.id);
+  }
   return (
     <div>
-      <li onClick={() => console.log("hi")}>{props.itemName}</li>
+      <li onClick={handleClick}>{props.itemName}</li>
     </div>
   );
 }
