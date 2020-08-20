@@ -8,7 +8,7 @@ function App() {
 
   /*****************************************************************API Requests*************************************************************/
   function fetchData() {
-    const itemsApi = "http://localhost:5000/items";
+    const itemsApi = "http://localhost:5000/list";
     const getCustomer = axios
       .get(itemsApi)
       .then(function (response) {
@@ -33,26 +33,28 @@ function App() {
     setItems((prevItems) => {
       return [...prevItems, inputText];
     });
-    axios.post("http://localhost:5000/addItems", { inputText }).then((res) => {
+    axios.post("http://localhost:5000/list", { inputText }).then((res) => {
       console.log(res);
       console.log(res.config.data);
     });
   }
 
-  // function deleteItem(id) {
-  //   setItems((preV) => {
-  //     return preV.filter((item, index) => {
-  //       return index !== id;
-  //     });
-  //   });
-  //   axios
-  //     .delete("http://localhost:5000/delete", { data: id })
-  //     .then
-  //     // Observe the data keyword this time. Very important
-  //     // payload is the request body
-  //     // Do something
-  //     ();
-  // }
+  function deleteItem(itemName) {
+    console.log(itemName);
+    setItems((preV) => {
+      console.log(preV);
+      return preV.filter((item, index) => {
+        console.log(item + itemName);
+        return item !== itemName;
+      });
+    });
+
+    axios
+      .delete("http://localhost:5000/list", { data: { itemName } })
+      .then((res) => {
+        console.log(res.config.data);
+      });
+  }
 
   return (
     <div className="container">
@@ -63,11 +65,15 @@ function App() {
       <div>
         <ul>
           {items.map((item, index) => (
-            <ToDoItem key={index} itemName={item} onChecked={deleteItem} />
+            <ToDoItem
+              key={index}
+              id={index}
+              itemName={item}
+              onChecked={deleteItem}
+            />
           ))}
         </ul>
       </div>
-      <button>Post Request</button>
     </div>
   );
 }

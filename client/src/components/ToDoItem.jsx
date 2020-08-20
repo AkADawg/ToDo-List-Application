@@ -5,8 +5,7 @@ function ToDoItem(props) {
   // const [isDone, setIsDone] = useState(false);
 
   function handleClick() {
-    console.log("Hi");
-    props.onChecked(props.id);
+    props.onChecked(props.itemName);
   }
 
   return (

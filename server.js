@@ -33,41 +33,46 @@ const testItem = new Item({
 // testItem.save();
 
 /***********************************HTTP Requests************************************************/
-app.get("/items", (req, res) => {
-  console.log("get request attempt");
 
-  Item.find((err, databaseItems) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(databaseItems);
-    }
+app
+  .route("/list")
+  .get((req, res) => {
+    console.log("get request attempt");
+
+    Item.find((err, databaseItems) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(databaseItems);
+      }
+    });
+  })
+
+  .post((req, res) => {
+    const newItem = new Item({
+      name: req.body.inputText,
+    });
+
+    newItem.save(function (err) {
+      if (!err) {
+        res.send("Succesfully added ");
+      } else {
+        res.send(err);
+      }
+    });
+  })
+
+  .delete((req, res) => {
+    const itemName = req.body.itemName;
+    console.log("hold up im tryna delete");
+    console.log(req.body.itemName);
+    Item.deleteOne({ name: itemName }, (err) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Succesfully deleted");
+      }
+    });
   });
-});
 
-app.post("/addItems", (req, res) => {
-  const newItem = new Item({
-    name: req.body.inputText,
-  });
-
-  newItem.save(function (err) {
-    if (!err) {
-      res.send("Succesfully added ");
-    } else {
-      res.send(err);
-    }
-  });
-});
-
-// app.delete("/delete", (req, res) => {
-//   const itemID = req.body.id;
-//   console.log(itemID);
-//   Item.findByIdAndRemove(itemID, (err) => {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.send("Succesfully deleted");
-//     }
-//   });
-// });
 app.listen(port, (req, res) => console.log("Server started on port" + port));
