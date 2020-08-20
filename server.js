@@ -32,13 +32,11 @@ const testItem = new Item({
 
 // testItem.save();
 
-/***********************************HTTP Requests************************************************/
+/*************************************HTTP Requests************************************************/
 
 app
   .route("/list")
   .get((req, res) => {
-    console.log("get request attempt");
-
     Item.find((err, databaseItems) => {
       if (err) {
         console.log(err);
@@ -64,8 +62,6 @@ app
 
   .delete((req, res) => {
     const itemName = req.body.itemName;
-    console.log("hold up im tryna delete");
-    console.log(req.body.itemName);
     Item.deleteOne({ name: itemName }, (err) => {
       if (err) {
         res.send(err);

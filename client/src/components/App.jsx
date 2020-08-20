@@ -42,9 +42,7 @@ function App() {
   function deleteItem(itemName) {
     console.log(itemName);
     setItems((preV) => {
-      console.log(preV);
       return preV.filter((item, index) => {
-        console.log(item + itemName);
         return item !== itemName;
       });
     });
