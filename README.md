@@ -39,5 +39,4 @@ This runs an arbitrary command specified in the package's "start" property of it
 ![](http://g.recordit.co/KKxLOmtdE4.gif?resize=50,50)
 
 ## Built With
-React. js 
-Node. js
+I used the MERN stack for this. 
