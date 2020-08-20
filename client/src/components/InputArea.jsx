@@ -1,6 +1,5 @@
 import React from "react";
 import AddIcon from "@material-ui/icons/Add";
-import AddBoxIcon from "@material-ui/icons/AddBox";
 
 function InputArea(props) {
   const [inputText, setInputText] = React.useState("");
@@ -8,15 +7,12 @@ function InputArea(props) {
   function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
-  }
-
-  function reset() {
-    setInputText("");
+    console.log(inputText);
   }
 
   function doThis() {
     props.buttonClicked(inputText);
-    reset();
+    setInputText("");
   }
 
   return (
@@ -24,8 +20,8 @@ function InputArea(props) {
       <input onChange={handleChange} type="text" value={inputText} />
       <button
         onClick={() => {
-          console.log("hi2");
-          doThis();
+          props.buttonClicked(inputText);
+          setInputText("");
         }}
       >
         <span>
