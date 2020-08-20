@@ -13,7 +13,7 @@ https://docs.npmjs.com/about-npm/
 ## Downloading
 
 ### Installing dependencies 
-On the command line, run the following command to ensure all dependencies are downloaded.
+On the command line, run the following command to ensure all dependencies are downloaded. Do this for the client directory for the React dependencies and for the actual directory.
 ```
 npm i       
 ```
@@ -26,6 +26,11 @@ Ensure that you have all of the dependencies, as shown below in the package. jso
 On the command line, run the following command which will host our React app on a local server. 
 ```
 npm start
+```
+
+To start the backend server where we make HTTP requests to, run the following command on the command line.
+```
+nodemon server.js
 ```
 
 This runs an arbitrary command specified in the package's "start" property of its "scripts" object. If no "start" property is specified on the "scripts" object, it will run node server. js .
