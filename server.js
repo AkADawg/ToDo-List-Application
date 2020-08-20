@@ -10,12 +10,14 @@ app.use(
     extended: true,
   })
 );
+app.use(bodyParser.json());
 
 app.use(cors());
 /************************************Setting up Database*****************************************/
 mongoose.connect("mongodb://localhost:27017/myToDoListDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 const itemsSchema = {
@@ -43,9 +45,29 @@ app.get("/items", (req, res) => {
   });
 });
 
-// app.post("/posts", (req, res) => {
-//   console.log(req.body.name);
-//   console.log("You have posted");
-// });
+app.post("/addItems", (req, res) => {
+  const newItem = new Item({
+    name: req.body.inputText,
+  });
 
+  newItem.save(function (err) {
+    if (!err) {
+      res.send("Succesfully added ");
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+// app.delete("/delete", (req, res) => {
+//   const itemID = req.body.id;
+//   console.log(itemID);
+//   Item.findByIdAndRemove(itemID, (err) => {
+//     if (err) {
+//       res.send(err);
+//     } else {
+//       res.send("Succesfully deleted");
+//     }
+//   });
+// });
 app.listen(port, (req, res) => console.log("Server started on port" + port));

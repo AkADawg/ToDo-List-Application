@@ -9,14 +9,13 @@ function App() {
   /*****************************************************************API Requests*************************************************************/
   function fetchData() {
     const itemsApi = "http://localhost:5000/items";
-    console.log("fetching data");
     const getCustomer = axios
       .get(itemsApi)
       .then(function (response) {
         const itemsData = response;
         itemsData.data.forEach((element) => {
           setItems((prevItems) => {
-            return [...prevItems, element];
+            return [...prevItems, element.name];
           });
         });
       })
@@ -26,26 +25,34 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("fetching data1");
     fetchData();
   }, []);
 
   /*****************************************************************Local Changes**************************************************************/
   function addItem(inputText) {
     setItems((prevItems) => {
-      console.log(prevItems);
       return [...prevItems, inputText];
     });
-    console.log("adding text");
+    axios.post("http://localhost:5000/addItems", { inputText }).then((res) => {
+      console.log(res);
+      console.log(res.config.data);
+    });
   }
 
-  function deleteItem(id) {
-    // setItems((preV) => {
-    //   return preV.filter((item, index) => {
-    //     return index !== id;
-    //   });
-    // });
-  }
+  // function deleteItem(id) {
+  //   setItems((preV) => {
+  //     return preV.filter((item, index) => {
+  //       return index !== id;
+  //     });
+  //   });
+  //   axios
+  //     .delete("http://localhost:5000/delete", { data: id })
+  //     .then
+  //     // Observe the data keyword this time. Very important
+  //     // payload is the request body
+  //     // Do something
+  //     ();
+  // }
 
   return (
     <div className="container">
@@ -56,7 +63,7 @@ function App() {
       <div>
         <ul>
           {items.map((item, index) => (
-            <ToDoItem key={index} itemName={item.name} onChecked={deleteItem} />
+            <ToDoItem key={index} itemName={item} onChecked={deleteItem} />
           ))}
         </ul>
       </div>

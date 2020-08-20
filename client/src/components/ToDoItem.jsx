@@ -6,7 +6,7 @@ function ToDoItem(props) {
 
   function handleClick() {
     console.log("Hi");
-    // props.onChecked(props.id);
+    props.onChecked(props.id);
   }
 
   return (
